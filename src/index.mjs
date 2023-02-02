@@ -1,8 +1,10 @@
 import http from "http";
-import { RPCServer } from "ocpp-rpc";
+import { RPCServer, createRPCError } from "ocpp-rpc";
 import { nanoid } from "nanoid";
+import formidable from "formidable";
+import fs from "fs";
 
-import ChargePoint from "./charge-point";
+import ChargePoint from "./charge-point.mjs";
 
 const httpServer = http.createServer();
 const rpcServer = new RPCServer({
@@ -12,8 +14,8 @@ const rpcServer = new RPCServer({
 
 httpServer.on("upgrade", rpcServer.handleUpgrade);
 
-const chargePoints: { [key: string]: ChargePoint } = {};
-const idTags: string[] = [];
+const chargePoints = {};
+const idTags = [];
 const transactions = {};
 
 httpServer.on("request", async (req, res) => {
@@ -75,7 +77,7 @@ httpServer.on("request", async (req, res) => {
       });
     });
 
-    const { chargePointId, connectorId, idTag } = JSON.parse(body as any);
+    const { chargePointId, connectorId, idTag } = JSON.parse(body);
 
     if (chargePoints[chargePointId]) {
       const response = await chargePoints[chargePointId].startTransaction({
@@ -120,6 +122,72 @@ httpServer.on("request", async (req, res) => {
       return;
     }
   }
+
+  // GET /configuration/:chargePointId
+  if (req.url.startsWith("/configuration/") && req.method === "GET") {
+    const chargePointId = req.url.split("/")[2];
+    if (chargePoints[chargePointId]) {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.write(
+        JSON.stringify({
+          configuration: await chargePoints[chargePointId].getConfiguration(),
+        }));
+      res.end();
+      return;
+    } else {
+      res.writeHead(404);
+      res.write("Charge point not found");
+      res.end();
+      return
+    }
+  }
+
+  if (
+    req.url === "/configuration" &&
+    req.method === "POST" &&
+    req.headers["content-type"] === "application/x-www-form-urlencoded"
+  ) {
+    const form = new formidable.IncomingForm();
+    form.parse(req, async (err, fields) => {
+      if (err) {
+        res.writeHead(500);
+        res.write("Internal server error");
+        res.end();
+        return;
+      }
+      const { chargePointId, key, value } = fields;
+      if (chargePoints[chargePointId]) {
+        await chargePoints[chargePointId].setConfiguration(key, value);
+        res.writeHead(200);
+        res.write("OK");
+        res.end();
+        return;
+      } else {
+        res.writeHead(404);
+        res.write("Charge point not found");
+        res.end();
+        return;
+      }
+    });
+  }
+
+  if (req.url === "/configuration" && req.method === "POST") {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.write("Config set");
+    res.end();
+    return;
+  }
+
+  if (req.url === '/' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    fs.createReadStream('./public/index.html').pipe(res);
+    return;
+  }
+
+  console.log("Unhandled request", req.url);
+  res.writeHead(404);
+  res.write("Route is not handled");
+  res.end();
 });
 
 
@@ -155,10 +223,23 @@ rpcServer.on("client", async (client) => {
     return {};
   });
 
+  // handle StartTransaction requests
+  client.handle('StartTransaction', ({ params }) => {
+    // the charging station has started a transaction and wants to inform the server.
+    console.log(`Server got StartTransaction from ${client.identity}:`, params);
+
+    return {
+      idTagInfo: {
+        status: 'Accepted', // idTag accepted
+      },
+      transactionId: 1, // the transactionId should relate to a record stored somewhere in your back-end
+    };
+  });
+
   // create a wildcard handler to handle any RPC method
   client.handle(({ method, params }) => {
     // This handler will be called if the incoming method cannot be handled elsewhere.
-    console.log(`Server got ${method} from ${client.identity}:`, params);
+    console.log(`Server got ${method} from ${client.identity}:`, JSON.stringify(params, null, 2));
 
     // throw an RPC error to inform the server that we don't understand the request.
     throw createRPCError("NotImplemented");
