@@ -1,0 +1,1 @@
+declare module 'ocpp-rpc';

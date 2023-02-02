@@ -1,0 +1,170 @@
+  [
+    {
+      key: 'AllowOfflineTxForUnknownId',
+      readonly: false,
+      value: 'FALSE'
+    },
+    {
+      key: 'AuthorizationCacheEnabled',
+      readonly: false,
+      value: 'FALSE'
+    },
+    {
+      key: 'AuthorizeRemoteTxRequests',
+      readonly: false,
+      value: 'FALSE'
+    },
+    { key: 'BlinkRepeat', readonly: false, value: '0' },
+    { key: 'ClockAlignedDataInterval', readonly: false, value: '0' },
+    { key: 'ConnectionTimeOut', readonly: false, value: '180' },
+    { key: 'GetConfigurationMaxKeys', readonly: true, value: '64' },
+    { key: 'HeartbeatInterval', readonly: false, value: '300' },
+    { key: 'LightIntensity', readonly: false, value: '3' },
+    { key: 'LocalAuthorizeOffline', readonly: false, value: 'TRUE' },
+    { key: 'LocalPreAuthorize', readonly: false, value: 'FALSE' },
+    { key: 'MaxEnergyOnInvalidId', readonly: false, value: '0' },
+    {
+      key: 'MeterValuesAlignedData',
+      readonly: false,
+      value: 'Current.Import,Energy.Active.Import.Register,Energy.Active.Import.Interval,Power.Active.Import,Voltage,Current.Offered'
+    },
+    {
+      key: 'MeterValuesAlignedDataMaxLength',
+      readonly: true,
+      value: '10'
+    },
+    {
+      key: 'MeterValuesSampledData',
+      readonly: false,
+      value: 'Current.Import,Energy.Active.Import.Register,Energy.Active.Import.Interval,Power.Active.Import,Voltage,Current.Offered'
+    },
+    {
+      key: 'MeterValuesSampledDataMaxLength',
+      readonly: true,
+      value: '10'
+    },
+    { key: 'MeterValueSampleInterval', readonly: false, value: '30' },
+    { key: 'MinimumStatusDuration', readonly: false, value: '120' },
+    { key: 'NumberOfConnectors', readonly: true, value: '1' },
+    { key: 'ResetRetries', readonly: false, value: '3' },
+    {
+      key: 'ConnectorPhaseRotation',
+      readonly: false,
+      value: 'NotApplicable'
+    },
+    {
+      key: 'ConnectorPhaseRotationMaxLength',
+      readonly: true,
+      value: '1'
+    },
+    {
+      key: 'StopTransactionOnEVSideDisconnect',
+      readonly: true,
+      value: 'TRUE'
+    },
+    {
+      key: 'StopTransactionOnInvalidId',
+      readonly: false,
+      value: 'FALSE'
+    },
+    { key: 'StopTxnAlignedData', readonly: true, value: '' },
+    { key: 'StopTxnAlignedDataMaxLength', readonly: true, value: '0' },
+    {
+      key: 'StopTxnSampledData',
+      readonly: false,
+      value: 'Current.Import,Energy.Active.Import.Interval,Power.Active.Import,Voltage'
+    },
+    { key: 'StopTxnSampledDataMaxLength', readonly: true, value: '9' },
+    {
+      key: 'SupportedFeatureProfiles',
+      readonly: true,
+      value: 'Core,FirmwareManagement,LocalAuthListManagement,Reservation,SmartCharging,RemoteTrigger'
+    },
+    {
+      key: 'SupportedFeatureProfilesMaxLength',
+      readonly: true,
+      value: '6'
+    },
+    { key: 'TransactionMessageAttempts', readonly: false, value: '3' },
+    {
+      key: 'TransactionMessageRetryInterval',
+      readonly: false,
+      value: '60'
+    },
+    {
+      key: 'UnlockConnectorOnEVSideDisconnect',
+      readonly: true,
+      value: 'TRUE'
+    },
+    { key: 'WebSocketPingInterval', readonly: false, value: '30' },
+    { key: 'QueueOffLineMeterValues', readonly: false, value: 'FALSE' },
+    { key: 'SecurityProfile', readonly: false, value: '0' },
+    { key: 'DefaultPrice', readonly: false, value: '' },
+    {
+      key: 'CustomDisplayCostAndPrice',
+      readonly: false,
+      value: 'FALSE'
+    },
+    { key: 'CustomIdleFeeAfterStop', readonly: false, value: 'FALSE' },
+    { key: 'TimeOffset', readonly: false, value: '+00:00' },
+    {
+      key: 'NextTimeOffsetTransitionDateTime',
+      readonly: false,
+      value: ' '
+    },
+    {
+      key: 'TimeOffsetNextTransition',
+      readonly: false,
+      value: '+00:00'
+    },
+    { key: 'SystemUptimeSec', readonly: true, value: '289964' },
+    { key: 'FreeVend', readonly: false, value: 'FALSE' },
+    { key: 'FreeVendIdtag', readonly: false, value: 'FreeVendIdtag' },
+    {
+      key: 'OcppServer',
+      readonly: false,
+      value: 'ws://45.147.176.223:9000'
+    },
+    { key: 'MaintainServer', readonly: false, value: '' },
+    {
+      key: 'StatusNotificationPeriodically',
+      readonly: false,
+      value: 'FALSE'
+    },
+    {
+      key: 'StatusNotificationInterval',
+      readonly: false,
+      value: '120'
+    },
+    { key: 'PreAuthAmount', readonly: false, value: '888.00' },
+    { key: 'isEnableLocalPowerSharing', readonly: false, value: '0' },
+    { key: 'PowerSharingServerIP', readonly: false, value: '' },
+    { key: 'EVCCID_PREFIX', readonly: false, value: '' },
+    { key: 'LocalAuthListEnabled', readonly: false, value: 'TRUE' },
+    { key: 'LocalAuthListMaxLength', readonly: true, value: '100000' },
+    { key: 'SendLocalListMaxLength', readonly: true, value: '500' },
+    {
+      key: 'ReserveConnectorZeroSupported',
+      readonly: true,
+      value: 'FALSE'
+    },
+    { key: 'ChargeProfileMaxStackLevel', readonly: true, value: '3' },
+    {
+      key: 'ChargingScheduleAllowedChargingRateUnit',
+      readonly: true,
+      value: 'Current,Power'
+    },
+    { key: 'ChargingScheduleMaxPeriods', readonly: true, value: '10' },
+    {
+      key: 'ConnectorSwitch3to1PhaseSupported',
+      readonly: true,
+      value: 'FALSE'
+    },
+    {
+      key: 'MaxChargingProfilesInstalled',
+      readonly: true,
+      value: '10'
+    },
+    { key: 'ConfigurationVersion', readonly: true, value: '15' }
+  ]
+}

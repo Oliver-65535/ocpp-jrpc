@@ -11,9 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "nanoid": "^4.0.0",
     "ocpp-rpc": "^2.0.0"
   },
   "devDependencies": {
+    "@types/node": "^18.11.18",
     "eslint": "^8.33.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
