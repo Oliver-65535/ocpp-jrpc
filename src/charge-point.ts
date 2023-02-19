@@ -1,10 +1,13 @@
 export default class ChargePoint {
-  constructor(identity, client) {
+  identity: string;
+  client: any; // replace any with the type of the client if known
+
+  constructor(identity: string, client: any) {
     this.identity = identity;
     this.client = client;
   }
 
-  async getNumConnectors() {
+  async getNumConnectors(): Promise<any> {
     const response = await this.client.call("GetConfiguration", {
       key: ["NumberOfConnectors"],
     });
@@ -12,12 +15,12 @@ export default class ChargePoint {
     return response;
   }
 
-  async getConfiguration() {
+  async getConfiguration(): Promise<string> {
     const response = await this.client.call("GetConfiguration");
     return response.configurationKey;
   }
 
-  async setConfiguration(key, value) {
+  async setConfiguration(key: string, value: any): Promise<any> {
     const response = await this.client.call("ChangeConfiguration", {
       key,
       value,
@@ -25,7 +28,10 @@ export default class ChargePoint {
     return response;
   }
 
-  async startTransaction({ connectorId, idTag }) {
+  async startTransaction({ connectorId, idTag }: {
+    connectorId: number,
+    idTag: string,
+  }): Promise<any> {
     const response = await this.client.call("RemoteStartTransaction", {
       connectorId,
       idTag,
@@ -33,7 +39,7 @@ export default class ChargePoint {
     return response;
   }
 
-  async getLocalListVersion() {
+  async getLocalListVersion(): Promise<number> {
     const response = await this.client.call("GetLocalListVersion");
     return parseInt(response.listVersion, 10);
   }
